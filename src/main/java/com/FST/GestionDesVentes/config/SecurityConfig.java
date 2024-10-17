@@ -62,10 +62,10 @@ public class SecurityConfig {
                                 "/produits/list", "/produits/add", "/categories/list", "/categories/add",
                                 "/clients/list", "/clients/add", "/commandes/list", "/commandes/add", "/facture/list",
                                 "/facture/add", "/fournisseur/list", "/fournisseur/add",
-                                "/panier/addProduitToPanier/{idUser}/{idProduit}",
+                                "/panier/addProduitToPanier/{email}/{idProduit}",
                                 "/panier/removeProduitFromPanier/{idPanier}/{idProduit}",
                                 "/panier/increaseQuantity/{idPanier}/{idProduit}",
-                                "/panier/decreaseQuantity/{idPanier}/{idProduit}")
+                                "/panier/decreaseQuantity/{idPanier}/{idProduit}","/commandes/add/{panierId}/{userEmail}")
                         .permitAll()
                         .anyRequest().fullyAuthenticated())
                 .exceptionHandling(ex -> ex

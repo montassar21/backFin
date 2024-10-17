@@ -31,7 +31,7 @@ public class Commande {
 	@JoinColumn(name = "client_id", nullable = false)
 	private Client client;
 
-	@Column(name = "panier_id", nullable = false)
+	@Column(name = "panier_id", nullable = true)
 	private Long panierId;
 
 	@PrePersist

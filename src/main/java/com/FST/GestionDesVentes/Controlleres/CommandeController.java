@@ -20,6 +20,7 @@ import com.FST.GestionDesVentes.Repositories.ClientRepository;
 import com.FST.GestionDesVentes.Repositories.CommandeRepository;
 import com.FST.GestionDesVentes.Repositories.FactureRepository;
 import com.FST.GestionDesVentes.Repositories.PanierRepository;
+import com.FST.GestionDesVentes.Repositories.UserRegistrationRepository;
 
 import jakarta.validation.Valid;
 
@@ -32,12 +33,14 @@ public class CommandeController {
 	private final ClientRepository clientRepository;
 	private final CommandeRepository commandeRepository;
 	private final FactureRepository factureRepository;
+	private final UserRegistrationRepository userRepository;
 
 	public CommandeController(PanierRepository panierRepository, ClientRepository clientRepository,
-			CommandeRepository commandeRepository, FactureRepository factureRepository) {
+			CommandeRepository commandeRepository, FactureRepository factureRepository,UserRegistrationRepository userRepository) {
 		this.panierRepository = panierRepository;
 		this.clientRepository = clientRepository;
 		this.commandeRepository = commandeRepository;
+		this.userRepository = userRepository;
 		this.factureRepository = factureRepository;
 	}
 
@@ -46,10 +49,10 @@ public class CommandeController {
 		return (List<Commande>) commandeRepository.findAll();
 	}
 
-	@PostMapping("/add/{panierId}/{clientId}")
+	@PostMapping("/add/{panierId}/{userEmail}")
 	public ResponseEntity<Map<String, Object>> ajouterCommande(
 			@PathVariable Long panierId,
-			@PathVariable Long clientId,
+			@PathVariable String userEmail,
 			@RequestBody Map<String, Object> requestBody) {
 		Optional<Panier> panierOpt = panierRepository.findById(panierId);
 		if (!panierOpt.isPresent()) {
@@ -57,7 +60,7 @@ public class CommandeController {
 		}
 
 		Panier panier = panierOpt.get();
-		Optional<Client> clientOpt = clientRepository.findById(clientId);
+		Optional<Client> clientOpt = clientRepository.findByEmail(userEmail);
 		if (!clientOpt.isPresent()) {
 			return ResponseEntity.badRequest().body(Map.of("message", "Client non trouvé"));
 		}

@@ -28,6 +28,7 @@ public class ProduitPanier {
 	@JsonIgnore
 	private Panier panier;
 
+
 	private String UsEmail;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

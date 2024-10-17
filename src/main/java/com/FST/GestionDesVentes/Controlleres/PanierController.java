@@ -90,10 +90,8 @@ public class PanierController {
 
 	
 	
-	
-	@CrossOrigin(origins = "http://localhost:4200")
-	 @GetMapping("/{email}")
-	    public ResponseEntity<Panier> getPanierByEmail(@PathVariable String userEmail) {
+		 @GetMapping("/{userEmail}")
+	    public ResponseEntity<?> getPanierByEmail(@PathVariable String userEmail) {
 	        Panier panier = panierRepository.findByuserEmail(userEmail);
 	        if (panier == null) {
 	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
